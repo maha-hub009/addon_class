@@ -1,0 +1,621 @@
+String pg 1
+
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        //using string literal//allowduplications//faster//stringpool
+        String s1="world!";
+        //using new keyword//prevent duplications//slower//heap
+        String s2 =new String("world!");
+        System.out.println(s1 == s2);
+        System.out.println(s1.equals(s2));
+        Scanner d =new Scanner(System.in);
+        //first method
+        String str1 =d.nextLine();
+        String str2=d.nextLine();
+        String s3 = str1;
+        String s4 = new String(str2);
+        System.out.println(s3 == s4);
+        //second method
+        String st1=d.nextLine();
+        String st2= new String(d.nextLine());
+       System.out.println(st1==st2); 
+    }
+}
+String comparison
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        
+      String teacher="java is fun";
+      String student1="java is fun";
+      String student2=new String("java is hard");
+      System.out.println(teacher==student1);
+      System.out.println(teacher==student2);
+      System.out.println(student1==student2);
+    }
+}
+String methods
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        
+    String s1="java is a programming language";
+    for(int i=0;i<s1.length();i++){
+        System.out.println(i);
+        System.out.println(s1.charAt(i));
+    }
+    }
+}
+Substring
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+        
+    String s1="java is a programming language";
+        System.out.println(s1.substring(5));
+        System.out.println(s1.substring(0,4));
+        
+        
+        
+    }
+    
+}
+String reverse using for loop
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+     String s1="java ia aprogramming language";   
+    for(int i=s1.length()-1;i>=0;i--)
+    {
+        System.out.println(s1.charAt(i));
+    }
+        
+        
+    }
+    
+}
+indexOf()
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+     String s1="java is a programming language";   
+     System.out.println("index of specified string"+s1.indexOf("programming"));
+     System.out.println(s1.indexOf("z"));
+        
+    }
+    
+}
+replace()
+class Main {
+    public static void main(String[] args) {
+        String s1="java";
+        System.out.println(s1.replace('a','!'));
+        
+    }
+}
+equalsIgnoreCase()
+class Main {
+    public static void main(String[] args) {
+        String s1="java";
+        String s2="JAVA";
+        System.out.println(s1.replace('a','!'));
+       // System.out.println(s1.toUpperCase());
+        System.out.println(s1.equalsIgnoreCase(s2));//returns true as because it checks the given character is not present
+        
+    }
+}
+trim()
+class Main {
+    public static void main(String[] args) {
+        String s1="JAVA";
+        String s2="Java";
+        System.out.println(s1.replace('a','!'));
+       // System.out.println(s1.toUpperCase());
+        System.out.println(s1.equalsIgnoreCase(s2));
+        System.out.println(s1.trim());
+        System.out.println(); }
+}
+intern()
+class Main {
+    public static void main(String[] args) {
+        String s1="JAVA";
+       String s2=new String("JAVA");
+       String s3=s1.intern();//memory location is changed
+       System.out.println(s1==s2);
+       System.out.println(s1==s3);
+      }
+}
+contains()
+class Main {
+    public static void main(String[] args) {
+        String s1="JAVA";
+       System.out.println(s1.contains("java"));
+       System.out.println(s1.contains("JAVA"));   
+    }
+}
+                                                        Split and tofind max value
+
+
+import java.util.Scanner;
+class Main {
+    public static void main(String[] args) {
+       Scanner s=new Scanner(System.in);
+       String s1=s.nextLine();
+       String[] s2=s1.split(",");
+       //System.out.println(s2[1]);
+       int max=0;
+       for(int i=0;i<s2.length;i++){
+           if(Integer.parseInt(s2[i])>max)
+           {
+               max=Integer.parseInt(s2[i]);
+           }
+       }
+       System.out.println(max)}
+
+
+
+	    String builder&string buffer
+
+                  public class Main
+                  {
+      public static void main(String[] args) {
+	    StringBuffer sb= new StringBuffer("hello");
+	    sb.append("world");
+	    System.out.println(sb);
+	    //insert
+	    sb.insert(5,"!");
+	    System.out.println(sb);
+	    //replace
+	    sb.replace(0,4,"java");
+	    System.out.println(sb);
+	    sb.reverse() 
+
+	}
+}
+                                                     Day-3
+Getting character from the user
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+	    Scanner s=new Scanner(System.in);
+	    char c=s.nextLine().charAt(0);
+	    System.out.println(c);
+	}
+}
+
+		Calling static members&methods
+
+Classname.staticmember name ===> calling static variable
+
+Classname.staticmethod name(); ===> calling static methods
+
+
+
+			Calling static members & methods
+
+
+import java.util.Scanner;
+  Public class Example{
+    
+    static int a=10;
+    Public static void display()
+    {
+        System.out.println("hello");
+    }
+}
+
+
+
+public class Main
+{
+	public static void main(String[] args) {
+	    System.out.println(Example.a);
+	   Example.display();
+	}
+}
+			
+ N                       
+
+import java.util.Scanner;
+ class Example{
+    
+    
+    void display2()
+{
+      System.out.println("non-static member");
+       }
+    int b=10;
+    
+}
+
+
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+	   Example d=new Example();//creation of object
+	   d.display2();//calling non-static variable
+	   System.out.println(d.b);//calling non-staticf methods
+	}
+}
+
+	
+		constructor types
+
+-Special method    ⇒ same name as class name.                                                                                                                                                                                                                                                                                                                                                                                                                                           
+-Does not allow access modifiers and any return types.     
+Syntax:
+
+classname()
+{
+
+}
+Default constructor
+
+-No parameters
+-Runs automatically after creating the object
+
+Program:
+
+
+import java.util.Scanner;
+          class Example{
+    
+//default constructor
+    Example()
+{
+      System.out.println("constructor");  
+    }
+    
+}
+
+
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+	   Example e=new Example();
+	}
+}
+
+   
+          This keyword
+
+Refers current object
+import java.util.Scanner;
+ class Example{
+    String carname;
+    String carmodel;
+   
+    Example( String carname, String carmodel){
+        this.carname=carname;//constructor variable
+        this.carmodel=carmodel;
+     
+    }
+    
+}
+
+
+
+public class Main
+{
+	public static void main(String[] args) {
+	    
+	   Example e=new Example("toyota","5");
+	   System.out.println(e.carname);
+      System.out.println(e.carmodel);
+	   
+	}
+}
+
+In the above program the variables carmodel&carname is located in heap memory which is not same as the parameters passed to the consturctor	
+     
+
+
+Encapsulation    
+Using get method:
+
+import java.util.Scanner;
+ class account{
+    private String acc;
+    private int balance;
+    
+    account(String acc, int balance)
+    {
+        this.acc=acc;
+        this.balance=balance;
+    }
+    public String getacc()
+    {
+        return acc;
+    }
+    public int getbalance()
+    {
+        return balance;
+    }
+    
+}
+}
+
+
+
+public class Main
+{
+	public static void main(String[] args) 
+	{
+	    account a=new account ("sati",356);
+	    System.out.println(a.getacc());
+	    System.out.println(a.getbalance());
+	   
+	   
+	}
+}
+		Updation in account name using set method 
+               import java.util.Scanner;
+    class account{
+    private String acc;
+    private int balance;
+    
+    account(String acc, int balance)
+    {
+        this.acc=acc;
+        this.balance=balance;
+    }
+    public String getacc()
+    {
+        return acc;
+    }
+    public int getbalance()
+    {
+        return balance;
+    }
+    public void setacc(String acc )
+    {
+        this.acc =acc ;
+    }
+    
+}
+
+
+
+public class Main
+{
+	public static void main(String[] args) 
+	{
+	    account a=new account ("sati",356);
+	    System.out.println(a.getacc());
+	    System.out.println(a.getbalance());
+	    a.setacc("parvati");
+	    System.out.println(a.getacc());
+	   
+	   
+	}
+}
+
+	    
+In get method you need to specify the return type whereas in set method the return type is void
+Get is used to get the value where as  set is used for updation
+	    
+	    
+	    
+	    
+	    
+Updation for credit purpose
+
+
+    import java.util.Scanner;
+    class account{
+    private String acc;
+    private int balance;
+    
+    account(String acc, int balance)
+    {
+        this.acc=acc;
+        this.balance=balance;
+    }
+    public String getacc()
+    {
+        return acc;
+    }
+    public int getbalance()
+    {
+        return balance;
+    }
+    public void setacc(String acc )
+    {
+        this.acc =acc ;
+    }
+    public void setbalance(int amount)
+    {
+        balance=balance+amount;
+    }
+    
+}
+
+
+
+public class Main
+{
+	public static void main(String[] args) 
+	{
+	    account a=new account ("sati",356);
+	    System.out.println(a.getacc());
+	    System.out.println(a.getbalance());
+	    a.setacc("parvati");
+	    System.out.println(a.getacc());
+	   a.setbalance(1000);
+	   System.out.println(a.getbalance());
+	   
+	}
+}
+
+	    	Deposit and withdrawing program  based on encapsulation
+
+import java.util.Scanner;
+    class account{
+    private String acc;
+    private int balance;
+    
+    account(String acc, int balance)
+    {
+        this.acc=acc;
+        this.balance=balance;
+        
+    }
+    public String getacc()
+    {
+        return acc;
+    }
+    public int getbalance()
+    {
+        return balance;
+    }
+    public void setacc(String acc )
+    {
+        this.acc =acc ;
+    }
+    public void setbalance(int amount)
+    {    if(balance>0)
+        {
+        
+        balance+=amount;
+       System.out.println("deposit amount: "+amount);
+       System.out.println("totalbalance : "+balance);
+        }
+        
+    }
+    public void setwithdraw(int withdraw )
+    {
+        balance= balance-withdraw;
+        System.out.println("current balance:"+balance);
+        System.out.println("withdrawn amount: "+withdraw);
+    }
+}
+
+
+
+public class Main
+{
+	public static void main(String[] args) 
+	{
+	    account a=new account ("sati",10000);
+	    System.out.println("account name:"+a.getacc());
+	    System.out.println("account balance"+a.getbalance());
+	    a.setacc("parvati");
+	    System.out.println("updated name :"+a.getacc());
+	   a.setbalance(1000);
+	   a.setwithdraw(20);}}
+                         ArrayList
+package constructor;
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Sample {
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner (System.in);
+		ArrayList <Object>Details=new ArrayList<>();
+		Details.add("john");
+		Details.add("20000");
+		Details.add("developer");
+		System.out.println("given arraylist"+Details);
+		System.out.println("size of the array"+Details.size());
+		System.out.println("to remove the elements:"+Details.remove(1));
+		System.out.println("getting element:"+Details.get(0));
+		
+		
+			
+	}
+}
+Output:
+given arraylist[john, 20000, developer]
+size of the array: 3
+to remove the elements:20000
+getting element:john
+
+	    
+
+	    Getting input from the user:
+package constructor;
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Sample {
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner (System.in);
+		ArrayList <Object>Details=new ArrayList<>();
+		String name=sc.nextLine();
+		Details.add(name);
+		
+		System.out.println("given arraylist"+Details);
+		System.out.println("size of the array"+Details.size());
+		System.out.println("to remove the elements:"+Details.remove(1));
+		System.out.println("getting element:"+Details.get(0));
+		
+		
+			
+	}
+}
+	    
+	    
+	    
+	    
+	    Arraylist-removing vowels
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class EliminateVowels {
+    public static void main(String[] args) {
+        // Create a Scanner object to take user input
+        Scanner scanner = new Scanner(System.in);
+        
+        // Prompt the user to enter a string
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+        
+        // Create an ArrayList to store vowels
+        ArrayList<Character> vowels = new ArrayList<>();
+        vowels.add('a');
+        vowels.add('e');
+        vowels.add('i');
+        vowels.add('o');
+        vowels.add('u');
+        vowels.add('A');
+        vowels.add('E');
+        vowels.add('I');
+        vowels.add('O');
+        vowels.add('U');
+
+        // StringBuilder to store the result
+        StringBuilder result = new StringBuilder();
+
+        // Iterate through the input string
+        for (char ch : input.toCharArray()) {
+            // Check if the character is not a vowel
+            if (!vowels.contains(ch)) {
+                result.append(ch);
+            }
+        }
+
+        // Print the result
+        System.out.println("Consonants in the string: " + result.toString());
+
+        // Close the scanner
+        scanner.close();
+    }
+}
+
+	    
+	    
+	    
+	    Exception Handling
+
+Throws: throws errors in method form
+
+It sends to the main function
+	    
+	    
+	
