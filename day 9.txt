@@ -1,0 +1,110 @@
+create table student (
+    student_id int primary key,
+    name varchar(50),
+    age int,
+    department varchar(50)
+);
+
+create table course (
+    course_id int primary key,
+    course_name varchar(100),
+    fee decimal(10, 2)
+);
+--------------------------------------
+-- insert into student table
+insert into student values (1, 'alice', 20, 'cse');
+insert into student values (2, 'bob', 21, 'ece');
+insert into student values (3, 'charlie', 22, 'it');
+insert into student values (4, 'david', 20, 'cse');
+insert into student values (5, 'eva', 23, 'eee');
+
+-- insert into course table
+insert into course values (101, 'database systems', 3000.00);
+insert into course values (102, 'operating systems', 3500.00);
+insert into course values (103, 'networks', 2800.00);
+insert into course values (104, 'java programming', 4000.00);
+insert into course values (105, 'web technologies', 3200.00);
+
+----------------------------------------------
+-- update fee for a specific course
+update course
+set fee = 3600.00
+where course_id = 102;
+-------------------------------------------
+-- create library-related tables
+create table books (
+    book_id int primary key,
+    title varchar(100),
+    author varchar(100),
+    price decimal(8, 2)
+);
+
+create table members (
+    member_id int primary key,
+    name varchar(50),
+    join_date date
+);
+
+create table issue (
+    issue_id int primary key,
+    member_id int,
+    book_id int,
+    issue_date date,
+    return_date date,
+    foreign key (member_id) references members(member_id),
+    foreign key (book_id) references books(book_id)
+);
+
+-- insert data into books
+insert into books values (1, 'the alchemist', 'paulo coelho', 250.00);
+insert into books values (2, '1984', 'george orwell', 300.00);
+insert into books values (3, 'clean code', 'robert c. martin', 450.00);
+
+-- insert data into members
+insert into members values (101, 'john', '2024-01-15');
+insert into members values (102, 'sara', '2024-02-20');
+
+-- insert data into issue
+insert into issue values (1001, 101, 1, '2025-06-01', '2025-06-10');
+insert into issue values (1002, 102, 2, '2025-06-05', '2025-06-12');
+
+!!!!!!!!!!!!!!!!output!!!!!!!!!!!!!!!!
+ select * from members;
++-----------+------+------------+
+| member_id | name | join_date  |
++-----------+------+------------+
+|       101 | John | 2024-01-15 |
+|       102 | Sara | 2024-02-20 |
++-----------+------+------------+
+2 rows in set (0.000 sec)
+
+MariaDB [maha]> select * from course;
++-----------+-------------------+---------+
+| course_id | course_name       | fee     |
++-----------+-------------------+---------+
+|       101 | Database Systems  | 3000.00 |
+|       102 | Operating Systems | 3600.00 |
+|       103 | Networks          | 2800.00 |
+|       104 | Java Programming  | 4000.00 |
+|       105 | Web Technologies  | 3200.00 |
++-----------+-------------------+---------+
+
+ select * from members;
++-----------+------+------------+
+| member_id | name | join_date  |
++-----------+------+------------+
+|       101 | John | 2024-01-15 |
+|       102 | Sara | 2024-02-20 |
++-----------+------+------------+
+2 rows in set (0.000 sec)
+
+MariaDB [maha]> select * from course;
++-----------+-------------------+---------+
+| course_id | course_name       | fee     |
++-----------+-------------------+---------+
+|       101 | Database Systems  | 3000.00 |
+|       102 | Operating Systems | 3600.00 |
+|       103 | Networks          | 2800.00 |
+|       104 | Java Programming  | 4000.00 |
+|       105 | Web Technologies  | 3200.00 |
++-----------+-------------------+---------+
