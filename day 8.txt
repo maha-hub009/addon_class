@@ -1,0 +1,64 @@
+-- Step 1: Create database
+CREATE DATABASE kgcas;
+USE kgcas;
+
+-- Step 2: Create tables
+CREATE TABLE studentprofile (
+    regno INT PRIMARY KEY,
+    name VARCHAR(50),
+    dob DATE,
+    department VARCHAR(30)
+);
+
+CREATE TABLE marks (
+    regno INT,
+    mark1 INT,
+    mark2 INT,
+    mark3 INT
+);
+
+-- Step 3: Insert at least 5 records into each table
+INSERT INTO studentprofile VALUES
+(101, 'Arun', '2003-05-15', 'BSc IT'),
+(102, 'Bala', '2004-01-12', 'BSc CS'),
+(103, 'Cathy', '2003-08-20', 'BCA'),
+(104, 'David', '2003-12-10', 'BSc IT'),
+(105, 'Eva', '2004-03-22', 'BSc CS');
+
+INSERT INTO marks VALUES
+(101, 75, 80, 78),
+(102, 60, 65, 70),
+(103, 85, 88, 90),
+(104, 50, 55, 60),
+(105, 95, 98, 99);
+
+-- Step 4: Display the structure of the tables
+DESCRIBE studentprofile;
+DESCRIBE marks;
+
+-- Step 5: Display the data from each table
+SELECT * FROM studentprofile;
+SELECT * FROM marks;
+
+-- Step 6: Add two columns to marks table: total, average
+ALTER TABLE marks ADD total INT;
+ALTER TABLE marks ADD average FLOAT;
+
+-- Step 7: Calculate total and store it
+UPDATE marks
+SET total = mark1 + mark2 + mark3;
+
+-- Step 8: Add average calculation
+UPDATE marks
+SET average = total / 3;
+
+-- Step 9: Display table names in the database
+SHOW TABLES;
+
+-- Step 10: Remove the 3rd student from studentprofile
+-- (Assuming regno = 103 is the 3rd student)
+DELETE FROM studentprofile WHERE regno = 103;
+
+-- Step 11: Remove all records from marks table
+DELETE FROM marks;
+
