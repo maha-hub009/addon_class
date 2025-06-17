@@ -1,0 +1,48 @@
+day 3(TASK)
+import java.util.Scanner;
+
+class BankAccount {
+    double balance = 0;
+
+    void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited: ₹" + amount);
+    }
+
+    void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: ₹" + amount);
+        } else {
+            System.out.println("Not enough balance!");
+        }
+    }
+
+    void showBalance() {
+        System.out.println("Balance: ₹" + balance);
+    }
+}
+
+public class Bank {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        BankAccount account = new BankAccount();
+
+        System.out.print("Enter deposit amount: ");
+        double dep = sc.nextDouble();
+        account.deposit(dep);
+
+        System.out.print("Enter withdraw amount: ");
+        double wd = sc.nextDouble();
+        account.withdraw(wd);
+
+        account.showBalance();
+    }
+
+}
+
+output:
+enter deposite number:200000
+deposited:200000.0
+enter withdrawn amount:150000
+balanace:50000.0
