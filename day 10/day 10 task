@@ -1,0 +1,88 @@
+count per course
+select * from student_task;
++--------+---------+--------+------+
+| reg_no | name    | course | age  |
++--------+---------+--------+------+
+|      1 | dharani | bsc cs |   19 |
+|      2 | priya   | bsc ca |   20 |
+|      3 | swetha  | bsc cs |   19 |
+|      4 | rani    | bsc it |   19 |
+|      5 | riya    | bsc ca |   20 |
+|      6 | getha   | bsc it |   19 |
++--------+---------+--------+------+
+ select * from student_task where course = 'bsc cs';
++--------+---------+--------+------+
+| reg_no | name    | course | age  |
++--------+---------+--------+------+
+|      1 | dharani | bsc cs |   19 |
+|      3 | swetha  | bsc cs |   19 |
++--------+---------+--------+------+
+2 rows in set (0.000 sec)
+
+MariaDB [maha]> select count(*) as bsc_cs
+    -> from student_task
+    -> where course = 'bsc cs';
++--------+
+| bsc_cs |
++--------+
+|      2 |
++--------+
+1 row in set (0.000 sec)
+_________________________________________________
+average by department
+
+
+MariaDB [maha]> select * from employee;
++-------+------------+--------+--------+
+| name  | departmaet | salary | emp_id |
++-------+------------+--------+--------+
+| sona  | marketing  |  60000 |      1 |
+| anu   | server     |  50000 |      2 |
+| maha  | HR         |  75000 |      3 |
+| pooja | web_dev    |  65000 |      4 |
+| maha  | HR         |  75000 |      0 |
+| pooja | web_dev    |  75000 |      0 |
+| pooja | web_dev    |  65000 |      5 |
+| arun  | HR         |  65000 |      6 |
++-------+------------+--------+--------+
+8 rows in set (0.000 sec)
+
+MariaDB [maha]> select departmaet , avg(salary) from employee group by departmaet;
++------------+-------------+
+| departmaet | avg(salary) |
++------------+-------------+
+| HR         |  71666.6667 |
+| marketing  |  60000.0000 |
+| server     |  50000.0000 |
+| web_dev    |  68333.3333 |
++------------+-------------+
+4 rows in set (0.000 sec
+_________________________________________________________
+min/max for product
+
+maha]> select * from product;
++--------------+-------------+---------------+
+| product_name | product_qty | product_price |
++--------------+-------------+---------------+
+| pen          |           5 |            10 |
+| pencil       |          20 |            50 |
+| scale        |          15 |            12 |
+| bun          |           9 |             9 |
++--------------+-------------+---------------+
+4 rows in set (0.000 sec)
+
+select max(product_price) from product;
++--------------------+
+| max(product_price) |
++--------------------+
+|                 50 |
++--------------------+
+
+MariaDB [maha]> select min(product_price) from product;
++--------------------+
+| min(product_price) |
++--------------------+
+|                  9 |
++--------------------+
+1 row in set (0.000 sec)
+____________________________________________
