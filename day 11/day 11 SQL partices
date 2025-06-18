@@ -1,0 +1,168 @@
+******FOREIGN AND PRIMARY KEY*********
+
+CREATE TABLE customer (
+    ->     customer_id INT PRIMARY KEY,
+    ->     first_name VARCHAR(50),
+    ->     last_name VARCHAR(50),
+    ->     email VARCHAR(100),
+    ->     phone VARCHAR(20),
+    ->     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    -> );
+Query OK, 0 rows affected (0.067 sec)
+
+MariaDB [maha]> INSERT INTO customer (customer_id, first_name, last_name, email, phone)
+    -> VALUES
+    ->   (1, 'Alice', 'Johnson', 'alice.johnson@example.com', '123-456-7890'),
+    ->   (2, 'Bob', 'Smith', 'bob.smith@example.com', '234-567-8901'),
+    ->   (3, 'Charlie', 'Brown', 'charlie.brown@example.com', '345-678-9012');
+Query OK, 3 rows affected (0.041 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [maha]> CREATE TABLE orders (
+    ->     order_id INT PRIMARY KEY,
+    ->     customer_id INT,
+    ->     FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+    -> );
+ERROR 1005 (HY000): Can't create table `maha`.`orders` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [maha]> CREATE TABLE orders (
+    ->     order_id INT PRIMARY KEY,
+    ->     customer_id INT,
+    ->     FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+    -> );
+Query OK, 0 rows affected (0.064 sec)
+
+MariaDB [maha]> INSERT INTO orders (order_id, customer_id)
+    -> VALUES
+    ->   (101, 1),
+    ->   (102, 2),
+    ->   (103, 1),
+    ->   (104, 3);
+Query OK, 4 rows affected (0.043 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [maha]> select * from customer;
++-------------+------------+-----------+---------------------------+--------------+---------------------+
+| customer_id | first_name | last_name | email                     | phone        | created_at          |
++-------------+------------+-----------+---------------------------+--------------+---------------------+
+|           1 | Alice      | Johnson   | alice.johnson@example.com | 123-456-7890 | 2025-06-18 11:22:58 |
+|           2 | Bob        | Smith     | bob.smith@example.com     | 234-567-8901 | 2025-06-18 11:22:58 |
+|           3 | Charlie    | Brown     | charlie.brown@example.com | 345-678-9012 | 2025-06-18 11:22:58 |
++-------------+------------+-----------+---------------------------+--------------+---------------------+
+3 rows in set (0.035 sec)
+
+MariaDB [maha]> select * from order;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'order' at line 1
+MariaDB [maha]> select * from orders;
++----------+-------------+
+| order_id | customer_id |
++----------+-------------+
+|      101 |           1 |
+|      103 |           1 |
+|      102 |           2 |
+|      104 |           3 |
++----------+-------------+
+4 rows in set (0.000 sec)
+_________________________________________________________
+
+************ ALL CONSTRAINTS************************
+ create table allconstraints(
+    -> id int auto_increment primary key,
+    -> username varchar(255) unique not null,
+    -> age int check(age>18),
+    -> arrers int default null,
+    -> percentage double not null);
+Query OK, 0 rows affected (0.029 sec)
+
+MariaDB [maha]> insert into allconstraints values(
+    -> 1,'maha',19,0,75);
+Query OK, 1 row affected (0.049 sec)
+insert into allconstraints(username,age,percentage) value('raghu',20,75);
+Query OK, 1 row affected (0.038 sec)
+
+MariaDB [maha]> insert into allconstraints(username,age,percentage) value('bhagya',40,85);
+Query OK, 1 row affected (0.042 sec)
+
+MariaDB [maha]> insert into allconstraints(username,age,percentage) value('bhuvana',40,80);
+Query OK, 1 row affected (0.040 sec)
+
+MariaDB [maha]> select * from allconstraints;
++----+----------+------+--------+------------+
+| id | username | age  | arrers | percentage |
++----+----------+------+--------+------------+
+|  1 | maha     |   19 |      0 |         75 |
+|  2 | raghu    |   20 |   NULL |         75 |
+|  3 | bhagya   |   40 |   NULL |         85 |
+|  4 | bhuvana  |   40 |   NULL |         80 |
++----+----------+------+--------+------------+
+____________________________________________________________
+**********JOINTS**************
+ select emp.empno,emp.ename,emp.job,dept.dname from emp
+    -> right join dept on emp.deptno=dept.deptno;
++-------+--------+-----------+------------+
+| empno | ename  | job       | dname      |
++-------+--------+-----------+------------+
+|  7369 | SMITH  | CLERK     | RESEARCH   |
+|  7499 | ALLEN  | SALESMAN  | SALES      |
+|  7521 | WARD   | SALESMAN  | SALES      |
+|  7566 | JONES  | MANAGER   | RESEARCH   |
+|  7654 | MARTIN | SALESMAN  | SALES      |
+|  7698 | BLAKE  | MANAGER   | SALES      |
+|  7782 | CLARK  | MANAGER   | ACCOUNTING |
+|  7788 | SCOTT  | ANALYST   | RESEARCH   |
+|  7839 | KING   | PRESIDENT | ACCOUNTING |
+|  7844 | TURNER | SALESMAN  | SALES      |
+|  7876 | ADAMS  | CLERK     | RESEARCH   |
+|  7900 | JAMES  | CLERK     | SALES      |
+|  7902 | FORD   | ANALYST   | RESEARCH   |
+|  7934 | MILLER | CLERK     | ACCOUNTING |
+|  NULL | NULL   | NULL      | OPERATIONS |
++-------+--------+-----------+------------+
+15 rows in set (0.000 sec)
+
+MariaDB [maha]> select emp.empno,emp.ename,emp.job,dept.dname from emp
+    -> left join dept on emp.deptno=dept.deptno;
++-------+--------+-----------+------------+
+| empno | ename  | job       | dname      |
++-------+--------+-----------+------------+
+|  7782 | CLARK  | MANAGER   | ACCOUNTING |
+|  7839 | KING   | PRESIDENT | ACCOUNTING |
+|  7934 | MILLER | CLERK     | ACCOUNTING |
+|  7369 | SMITH  | CLERK     | RESEARCH   |
+|  7566 | JONES  | MANAGER   | RESEARCH   |
+|  7788 | SCOTT  | ANALYST   | RESEARCH   |
+|  7876 | ADAMS  | CLERK     | RESEARCH   |
+|  7902 | FORD   | ANALYST   | RESEARCH   |
+|  7499 | ALLEN  | SALESMAN  | SALES      |
+|  7521 | WARD   | SALESMAN  | SALES      |
+|  7654 | MARTIN | SALESMAN  | SALES      |
+|  7698 | BLAKE  | MANAGER   | SALES      |
+|  7844 | TURNER | SALESMAN  | SALES      |
+|  7900 | JAMES  | CLERK     | SALES      |
++-------+--------+-----------+------------+
+14 rows in set (0.000 sec)
+
+MariaDB [maha]> select emp.empno,emp.ename,emp.job,dept.dname from emp
+    -> left join dept on emp.deptno=dept.deptno
+    -> union
+    -> select emp.empno,emp.ename,emp.job,dept.dname from emp
+    -> right join dept on emp.deptno=dept.deptno;
++-------+--------+-----------+------------+
+| empno | ename  | job       | dname      |
++-------+--------+-----------+------------+
+|  7782 | CLARK  | MANAGER   | ACCOUNTING |
+|  7839 | KING   | PRESIDENT | ACCOUNTING |
+|  7934 | MILLER | CLERK     | ACCOUNTING |
+|  7369 | SMITH  | CLERK     | RESEARCH   |
+|  7566 | JONES  | MANAGER   | RESEARCH   |
+|  7788 | SCOTT  | ANALYST   | RESEARCH   |
+|  7876 | ADAMS  | CLERK     | RESEARCH   |
+|  7902 | FORD   | ANALYST   | RESEARCH   |
+|  7499 | ALLEN  | SALESMAN  | SALES      |
+|  7521 | WARD   | SALESMAN  | SALES      |
+|  7654 | MARTIN | SALESMAN  | SALES      |
+|  7698 | BLAKE  | MANAGER   | SALES      |
+|  7844 | TURNER | SALESMAN  | SALES      |
+|  7900 | JAMES  | CLERK     | SALES      |
+|  NULL | NULL   | NULL      | OPERATIONS |
++-------+--------+-----------+------------+
+15 rows in set (0.004 sec)
