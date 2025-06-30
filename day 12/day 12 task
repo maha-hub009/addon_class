@@ -1,0 +1,99 @@
+Thanks for sharing the image, machan 😎
+Based on the image, here are the **Hands-on Exercise Tasks** and I’ll give you the SQL source code for each:
+
+---
+
+### ✅ **Task 1: Join Students and Marks**
+
+```sql
+SELECT 
+    s.student_id,
+    s.name,
+    m.subject,
+    m.marks
+FROM 
+    Students s
+JOIN 
+    Marks m ON s.student_id = m.student_id;
+```
+
+---
+
+### ✅ **Task 2: Sub-query to Find Top Performer**
+
+```sql
+SELECT 
+    student_id,
+    name
+FROM 
+    Students
+WHERE 
+    student_id = (
+        SELECT student_id 
+        FROM Marks 
+        GROUP BY student_id 
+        ORDER BY AVG(marks) DESC 
+        LIMIT 1
+    );
+```
+
+---
+
+### ✅ **Task 3: Join Orders and Customers**
+
+```sql
+SELECT 
+    o.order_id,
+    o.order_date,
+    c.customer_name,
+    c.email
+FROM 
+    Orders o
+JOIN 
+    Customers c ON o.customer_id = c.customer_id;
+```
+
+---
+
+### ✅ **Task 4 (Main Program): Multi-table Query App with Filters**
+
+```sql
+SELECT 
+    s.name AS student_name,
+    d.department_name,
+    m.subject,
+    m.marks
+FROM 
+    Students s
+JOIN 
+    Marks m ON s.student_id = m.student_id
+JOIN 
+    Departments d ON s.department_id = d.department_id
+WHERE 
+    m.marks > 75
+ORDER BY 
+    m.marks DESC;
+```
+
+---
+
+### 📝 **Post-Class Assignment: College DB - Department-wise Report**
+
+```sql
+SELECT 
+    d.department_name,
+    COUNT(s.student_id) AS total_students,
+    AVG(m.marks) AS avg_marks
+FROM 
+    Departments d
+JOIN 
+    Students s ON d.department_id = s.department_id
+JOIN 
+    Marks m ON s.student_id = m.student_id
+GROUP BY 
+    d.department_name;
+```
+
+---
+
+Let me know if you want **ER diagrams**, **sample data**, or to build this using **Java + MySQL + Spring Boot** or **React frontend** too!
