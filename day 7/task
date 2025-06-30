@@ -1,0 +1,158 @@
+
+🔹 Task 1: Connect to MySQL DB
+
+import java.sql.*;
+
+public class DBConnection {
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://localhost:3306/college";
+        String user = "root";
+        String pass = "your_password";
+
+        try {
+            Connection con = DriverManager.getConnection(url, user, pass);
+            System.out.println("Connected to DB successfully!");
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+---
+
+🔹 Task 2: Insert data
+
+import java.sql.*;
+
+public class InsertData {
+    public static void main(String[] args) {
+        try {
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/college", "root", "your_password");
+            
+            String query = "INSERT INTO Student (id, name, department) VALUES (?, ?, ?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            
+            pst.setInt(1, 1);
+            pst.setString(2, "Nishanthika");
+            pst.setString(3, "IT");
+
+            int rows = pst.executeUpdate();
+            System.out.println("Inserted " + rows + " row(s).");
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+---
+
+🔹 Task 3: Update a course fee
+
+import java.sql.*;
+
+public class UpdateCourseFee {
+    public static void main(String[] args) {
+        try {
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/college", "root", "your_password");
+            
+            String query = "UPDATE Course SET fee = ? WHERE course_id = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            
+            pst.setDouble(1, 5500.00);
+            pst.setString(2, "CSE101");
+
+            int rows = pst.executeUpdate();
+            System.out.println("Updated " + rows + " row(s).");
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+---
+
+🔹 Main Task: Library DB – create 3 tables and populate data
+
+import java.sql.*;
+
+public class LibraryDB {
+    public static void main(String[] args) {
+        try {
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/college", "root", "your_password");
+
+            Statement stmt = con.createStatement();
+
+            String bookTable = "CREATE TABLE IF NOT EXISTS Book (" +
+                               "book_id INT PRIMARY KEY, " +
+                               "title VARCHAR(100), " +
+                               "author VARCHAR(100))";
+
+            String memberTable = "CREATE TABLE IF NOT EXISTS Member (" +
+                                 "member_id INT PRIMARY KEY, " +
+                                 "name VARCHAR(100))";
+
+            String issueTable = "CREATE TABLE IF NOT EXISTS Issue (" +
+                                "issue_id INT PRIMARY KEY, " +
+                                "book_id INT, " +
+                                "member_id INT, " +
+                                "issue_date DATE," +
+                                "FOREIGN KEY (book_id) REFERENCES Book(book_id), " +
+                                "FOREIGN KEY (member_id) REFERENCES Member(member_id))";
+
+            stmt.execute(bookTable);
+            stmt.execute(memberTable);
+            stmt.execute(issueTable);
+
+            System.out.println("Library tables created successfully.");
+
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+---
+
+🔹 Post Assessment: Create Employee and Department tables, insert records
+
+import java.sql.*;
+
+public class CreateEmpDeptTables {
+    public static void main(String[] args) {
+        try {
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/college", "root", "your_password");
+
+            Statement stmt = con.createStatement();
+
+            stmt.execute("CREATE TABLE IF NOT EXISTS Department (" +
+                         "dept_id INT PRIMARY KEY, dept_name VARCHAR(100))");
+
+            stmt.execute("CREATE TABLE IF NOT EXISTS Employee (" +
+                         "emp_id INT PRIMARY KEY, emp_name VARCHAR(100), " +
+                         "salary DOUBLE, dept_id INT, " +
+                         "FOREIGN KEY (dept_id) REFERENCES Department(dept_id))");
+
+            stmt.execute("INSERT INTO Department VALUES (1, 'IT'), (2, 'HR')");
+            stmt.execute("INSERT INTO Employee VALUES (101, 'Nisha', 30000, 1), (102, 'Rahul', 25000, 2)");
+
+            System.out.println("Inserted sample Employee and Department data.");
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace()
+        }
+    }
+}
+
+
