@@ -1,0 +1,176 @@
+class MyThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("Number: " + i);
+            try {
+                Thread.sleep(500); // Pause for readability
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start();
+    }
+}
+
+
+---
+
+🔹 Task 2: Implement Runnable to print a message from multiple threads
+
+class MessagePrinter implements Runnable {
+    private String message;
+
+    public MessagePrinter(String message) {
+        this.message = message;
+    }
+
+    public void run() {
+        for (int i = 1; i <= 3; i++) {
+            System.out.println(message + " - " + i);
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new MessagePrinter("Hello"));
+        Thread t2 = new Thread(new MessagePrinter("Welcome"));
+
+        t1.start();
+        t2.start();
+    }
+}
+
+
+---
+
+🔹 Task 3: Use sleep() and join() using thread coordination
+
+class SleepJoinExample extends Thread {
+    public void run() {
+        try {
+            System.out.println(Thread.currentThread().getName() + " is running");
+            Thread.sleep(1000);
+            System.out.println(Thread.currentThread().getName() + " finished");
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        SleepJoinExample t1 = new SleepJoinExample();
+        SleepJoinExample t2 = new SleepJoinExample();
+
+        t1.start();
+        t1.join();  // t2 will start only after t1 completes
+        t2.start();
+    }
+}
+
+
+---
+
+🔹 Main Task: Movie Ticket Booking (Thread Safety)
+
+class TicketBooking extends Thread {
+    static int availableTickets = 5;
+    int ticketsNeeded;
+
+    TicketBooking(int tickets) {
+        this.ticketsNeeded = tickets;
+    }
+
+    public void run() {
+        synchronized (TicketBooking.class) {
+            if (availableTickets >= ticketsNeeded) {
+                System.out.println(ticketsNeeded + " ticket(s) booked by " + Thread.currentThread().getName());
+                availableTickets -= ticketsNeeded;
+            } else {
+                System.out.println("Sorry, not enough tickets for " + Thread.currentThread().getName());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        TicketBooking t1 = new TicketBooking(3);
+        TicketBooking t2 = new TicketBooking(2);
+        TicketBooking t3 = new TicketBooking(1);
+
+        t1.setName("User 1");
+        t2.setName("User 2");
+        t3.setName("User 3");
+
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+
+
+---
+
+🔹 Post Assessment: Multithreaded Banking System
+
+Features: Deposit, Withdraw, Balance, Multiple Users
+
+class BankAccount {
+    private int balance = 1000;
+
+    public synchronized void deposit(int amount) {
+        balance += amount;
+        System.out.println("Deposited: " + amount + " | Balance: " + balance);
+    }
+
+    public synchronized void withdraw(int amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount + " | Balance: " + balance);
+        } else {
+            System.out.println("Insufficient balance for withdrawal.");
+        }
+    }
+
+    public synchronized void checkBalance() {
+        System.out.println("Current Balance: " + balance);
+    }
+}
+
+class Customer extends Thread {
+    BankAccount acc;
+    String action;
+    int amount;
+
+    Customer(BankAccount acc, String action, int amount) {
+        this.acc = acc;
+        this.action = action;
+        this.amount = amount;
+    }
+
+    public void run() {
+        switch (action) {
+            case "deposit":
+                acc.deposit(amount);
+                break;
+            case "withdraw":
+                acc.withdraw(amount);
+                break;
+            case "balance":
+                acc.checkBalance();
+                break;
+        }
+    }
+
+    public static void main(String[] args) {
+        BankAccount acc = new BankAccount();
+
+        Customer c1 = new Customer(acc, "deposit", 500);
+        Customer c2 = new Customer(acc, "withdraw", 300);
+        Customer c3 = new Customer(acc, "balance", 0);
+
+        c1.start();
+        c2.start();
+        c3.start();
+    }
+}
